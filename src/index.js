@@ -1,31 +1,53 @@
 import GetIntegrations from "./scenarios/get-integracoes.js";
+import PostIntegracao1 from "./scenarios/post_integracao1.js";
+import PostIntegracao2 from "./scenarios/post_integracao2.js";
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
-import {group , sleep} from 'k6';
-
+import { group, sleep } from 'k6';
 
 //para gerar os relatorios
 export function handleSummary(data) {
-    return {
-      "summary.html": htmlReport(data),
-    };
-  }
-//opcoes
-  export const options = {
-    // vus: 10,  //usuarios simultaneos
-    // duration: '30s',
-    stages: [
-        { duration: '30s', target: 20 }, // below normal load
-        { duration: '40s', target: 30 },
-        { duration: '40s', target: 1 },
-    
-      ],
+  return {
+    "summary.html": htmlReport(data),
   };
+}
+// //opcoes
+// export const options = {
+//   // vus: 10,  //usuarios simultaneos
+//   // duration: '30s',
+//   stages: [
+//     { duration: '5s', target: 2 }
+//   ],
+// };
 
+export const options = {
+
+  scenarios: {
+    post_integracao1: {
+      executor: 'shared-iterations',
+      startTime: '0s',
+      vus: 5,
+      iterations: 40,
+      maxDuration: '10s',
+    },
+    post_integracao2: {
+      executor: 'shared-iterations',
+      startTime: '20s',
+      vus: 5,
+      iterations: 20,
+      maxDuration: '15s'
+    },
+  },
+};
 
 export default () => {
-    group('Endpoint Get Integrations - hangfire - Integrador.Api', () => {
-        GetIntegrations();
-    });
 
-    sleep(1);
+  group('Endpoint Post Integrations 1 - hangfire - Integrador.Api', () => {
+    PostIntegracao1();
+  });
+
+  group('Endpoint Post Integrations 2 - hangfire - Integrador.Api', () => {
+    PostIntegracao2();
+  });
+
+  sleep(1);
 }

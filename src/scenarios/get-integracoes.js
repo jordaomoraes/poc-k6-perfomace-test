@@ -9,7 +9,7 @@ export let GetCustomerSuccessRate = new Rate('get_customer_success_rate');
 export let GetCustomerReqs = new Rate('get_customer_reqs');
 
 export default function () {
-    let res = http.get('http://10.10.3.2:5020/api/hangfire/integrations')
+    let res = http.get('https://test.k6.io')
 
     GetCustomerDuration.add(res.timings.duration);
     GetCustomerReqs.add(1);
@@ -23,7 +23,6 @@ export default function () {
       fail(durationMsg);
     }
     sleep(1);
-
 }
 
 

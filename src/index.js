@@ -25,17 +25,17 @@ export const options = {
     post_integracao1: {
       executor: 'shared-iterations',
       startTime: '0s',
-      vus: 5,
-      iterations: 40,
-      maxDuration: '10s',
+      vus: 1,
+      iterations: 1,
+      maxDuration: '1s',
     },
-    post_integracao2: {
-      executor: 'shared-iterations',
-      startTime: '20s',
-      vus: 5,
-      iterations: 20,
-      maxDuration: '15s'
-    },
+    // post_integracao2: {
+    //   executor: 'shared-iterations',
+    //   startTime: '20s',
+    //   vus: 5,
+    //   iterations: 20,
+    //   maxDuration: '15s'
+    // },
   },
 };
 
@@ -45,9 +45,9 @@ export default () => {
     PostIntegracao1();
   });
 
-  group('Endpoint Post Integrations 2 - hangfire - Integrador.Api', () => {
-    PostIntegracao2();
-  });
+  // group('Endpoint Post Integrations 2 - hangfire - Integrador.Api', () => {
+  //   PostIntegracao2();
+  // });
 
   sleep(1);
 }

@@ -1,10 +1,10 @@
 import http from 'k6/http';
 
 export default function () {
-  const url = 'http://test.k6.io/login';
+  const url = 'http://10.10.3.2:5020/api/job';
   const payload = JSON.stringify({
-    email: 'lgj',
-    password: 'bbb',
+    assemblyName: "Rech.Integracao.Filiais",
+    className: "FiliaisRunner",
   });
 
   const params = {
